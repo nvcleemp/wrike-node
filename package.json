@@ -1,0 +1,30 @@
+{
+  "name": "wrike-node",
+  "version": "1.0.0",
+  "description": "Node.js Wrike.com API wrapper.",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepare": "npm run lint && npm run build",
+    "lint": "eslint src/**",
+    "build": "rimraf dist && babel src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/GreenhouseGroup/meh/wrike-api-package.git"
+  },
+  "author": "Rick Stevens <rick.stevens@greenhousegroup.com> (https://www.greenhousegroup.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "rimraf": "^2.6.3"
+  },
+  "dependencies": {
+    "node-fetch": "^2.3.0"
+  }
+}
