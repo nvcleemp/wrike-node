@@ -36,7 +36,9 @@ Returns a `Promise`, resolving `data` (Array), or the full result (Object) in ca
 - `path` (String) For possible values, see: https://developers.wrike.com/documentation
 - _optional_ `parameters` (Object) For possible options, see https://developers.wrike.com/documentation
 
-## Roadmap
+#### `.post|put(path, file, fileName)`
 
-- [ ] Create attachments
-- [ ] Update attachments
+When uploading or replacing Wrike attachments, `parameters` becomes the `file` content, and `fileName` is added.
+
+- `file` (String|Buffer|Blob|Readable stream)
+- `fileName` (String) E.g. `'attachment.txt'`
