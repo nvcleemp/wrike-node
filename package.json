@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Node.js Wrike.com API wrapper.",
   "main": "dist/index.js",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "prepare": "npm run lint && npm run build",
     "lint": "eslint src/**",
