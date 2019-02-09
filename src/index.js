@@ -24,6 +24,11 @@ export default class Wrike {
     }
 
     const response = await fetch(url, { method, headers, body });
+
+    if (/^\/attachments\/[^/]+\/(?:download|preview)/.test(path)) {
+      return response.body;
+    }
+
     const result = await response.json();
     return result.data || result;
   }
