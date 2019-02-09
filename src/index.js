@@ -7,16 +7,16 @@ export default class Wrike {
     this.baseUrl = `https://${apiRegion === 'eu' ? 'app-eu' : 'www'}.wrike.com/api/v${apiVersion}`;
   }
 
-  async fetch(method, path, parameters, fileName) {
+  async fetch(method, path, parameters) {
     const headers = { Authorization: `bearer ${this.accessToken}` };
     let url = `${this.baseUrl}${path}`;
     let body = null;
 
-    if (fileName) {
+    if (parameters && parameters.file && parameters.name && parameters.contentType) {
       headers['X-Requested-With'] = 'XMLHttpRequest';
-      headers['Content-Type'] = 'application/octet-stream';
-      headers['X-File-Name'] = fileName;
-      body = parameters;
+      headers['Content-Type'] = parameters.contentType;
+      headers['X-File-Name'] = parameters.name;
+      body = parameters.file;
     } else if (method === 'get') {
       url += `?${stringify(parameters)}`;
     } else {
@@ -32,12 +32,12 @@ export default class Wrike {
     return this.fetch('get', path, parameters);
   }
 
-  post(path, parameters, fileName) {
-    return this.fetch('post', path, parameters, fileName);
+  post(path, parameters) {
+    return this.fetch('post', path, parameters);
   }
 
-  put(path, parameters, fileName) {
-    return this.fetch('put', path, parameters, fileName);
+  put(path, parameters) {
+    return this.fetch('put', path, parameters);
   }
 
   delete(path, parameters) {
