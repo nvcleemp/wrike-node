@@ -21,29 +21,29 @@ wrike
 
 ## Reference
 
-#### `new Wrike(accessToken[,apiRegion[,apiVersion]])`
+### new Wrike(accessToken[, apiRegion[, apiVersion]])
 
-Creates a new `Wrike` instance, authenticated by the provided access token.
+* `accessToken` &lt;String&gt;
+* `apiRegion` &lt;String&gt; Either `'us'` or `'eu'`. Used to determine the API base URL. **Default: `'us'`**
+* `apiVersion` &lt;Integer&gt; **Default: `4`**
 
-- `accessToken` (String)
-- `apiRegion` (String) Either `'us'` or `'eu'`. Used to determine the API base URL. **Default: `'us'`**
-- `apiVersion` (Integer) **Default: `4`**
+### wrike.get|post|put|delete(path[, parameters])
 
-#### `wrike.get|post|put|delete(path[,parameters])`
+* `path` &lt;String&gt;
+* `parameters` &lt;Object&gt; **Default: `undefined`**
 
-Returns a `Promise`, resolving to:
+_For all possible values, see: https://developers.wrike.com/documentation_
 
-1. `data` (Array),
-2. **Or** the full result (Object), when `data`'s not present
-3. **Or** a Node.js [Readable stream](https://nodejs.org/api/stream.html#stream_readable_streams) (when [downloading attachments](https://developers.wrike.com/documentation/api/methods/download-wrike-attachment) or [attachment previews](https://developers.wrike.com/documentation/api/methods/download-attachment-preview)).
+Always returns a `Promise`, resolving to either:
 
-- `path` (String) For possible values, see: https://developers.wrike.com/documentation
-- `parameters` (Object) For possible properties, see https://developers.wrike.com/documentation
+1. The result object's `data` property &lt;Array&gt;
+2. The entire result object &lt;Object&gt; (when there's no `data` property)
+3. A Node.js [Readable stream](https://nodejs.org/api/stream.html#stream_readable_streams) (when downloading [attachments](https://developers.wrike.com/documentation/api/methods/download-wrike-attachment) or [attachment previews](https://developers.wrike.com/documentation/api/methods/download-attachment-preview))
 
-##### Attachments
+#### Attachments
 
-When [uploading](https://developers.wrike.com/documentation/api/methods/create-wrike-attachment) or [replacing](https://developers.wrike.com/documentation/api/methods/update-attachment) Wrike attachments, use the following `parameters`:
+When [creating](https://developers.wrike.com/documentation/api/methods/create-wrike-attachment) or [updating](https://developers.wrike.com/documentation/api/methods/update-attachment) Wrike attachments, use the following custom `parameters`:
 
-- `parameters.file` (String|Buffer|Blob|Readable stream) E.g. `'Hello world!'`
-- `parameters.name` (String) E.g. `'attachment.txt'`
-- `parameters.contentType` (String) E.g. `'text/plain'`
+* `parameters.file` &lt;String|Buffer|Blob|Readable stream&gt; E.g. `'Hello world!'`
+* `parameters.name` &lt;String&gt; E.g. `'attachment.txt'`
+* `parameters.contentType` &lt;String&gt; E.g. `'text/plain'`
