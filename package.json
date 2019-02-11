@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GreenhouseGroupBV/wrike-node.git"
+    "url": "https://github.com/GreenhouseGroupBV/wrike-node.git"
   },
   "author": "Rick Stevens <rick.stevens@greenhousegroup.com> (https://www.greenhousegroup.com/)",
   "license": "MIT",
