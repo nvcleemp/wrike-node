@@ -37,8 +37,7 @@ _For all possible values, see: https://developers.wrike.com/documentation_
 Always returns a `Promise`, resolving to either:
 
 1. The result object's `data` property &lt;Array&gt;
-2. The entire result object &lt;Object&gt; (when there's no `data` property)
-3. A Node.js [Readable stream](https://nodejs.org/api/stream.html#stream_readable_streams) (when downloading [attachments](https://developers.wrike.com/documentation/api/methods/download-wrike-attachment) or [attachment previews](https://developers.wrike.com/documentation/api/methods/download-attachment-preview))
+2. A Node.js [Readable stream](https://nodejs.org/api/stream.html#stream_readable_streams) (when downloading [attachments](https://developers.wrike.com/documentation/api/methods/download-wrike-attachment) or [attachment previews](https://developers.wrike.com/documentation/api/methods/download-attachment-preview))
 
 #### Attachments
 
