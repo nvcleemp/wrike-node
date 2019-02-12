@@ -1,0 +1,18 @@
+{
+  "ignore": [
+    "**/*.test.js"
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": true
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "add-module-exports"
+  ]
+}
