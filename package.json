@@ -4,7 +4,7 @@
   "description": "Node.js Wrike.com API wrapper.",
   "main": "dist/index.js",
   "files": [
-    "/dist"
+    "/dist/**/!(*.test).js"
   ],
   "scripts": {
     "lint": "eslint src/**",
