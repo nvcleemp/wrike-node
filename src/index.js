@@ -37,8 +37,11 @@ export default class Wrike {
       headers['Content-Type'] = parameters.contentType;
       headers['X-File-Name'] = parameters.name;
       body = parameters.file;
-    } else {
+    } else if (method === 'get') {
       url += `?${stringify(parameters)}`;
+    } else {
+      body = new FormData();
+      Object.keys(parameters).forEach(key => body.append(key, parameters[key]));
     }
 
     const response = await fetch(url, { method, headers, body });
