@@ -12,7 +12,11 @@ export const validateClassArguments = (accessToken, apiRegion, apiVersion) => {
   }
 };
 
-export const validateFetchArguments = (path, parameters) => {
+export const validateFetchArguments = (method, path, parameters) => {
+  if (!['get', 'post', 'put', 'delete'].includes(method)) {
+    throw new Error('Please provide a valid request method: "get", "post", "put" or "delete"');
+  }
+
   if (!path || typeof path !== 'string' || !/^\/[^/]/.test(path)) {
     throw new Error('Please provide a valid Wrike API method "path", e.g. "/tasks"');
   }
