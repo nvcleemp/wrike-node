@@ -26,7 +26,7 @@ export default class Wrike {
    * @returns {Promise} Resolves to an array, or a Node.js Readable stream (for downloads).
    */
   async fetch(method, path, parameters) {
-    validateFetchArguments(method, path, parameters);
+    validateFetchArguments(path, parameters);
 
     const headers = { Authorization: `bearer ${this.accessToken}` };
     let url = `${this.baseUrl}${path}`;
