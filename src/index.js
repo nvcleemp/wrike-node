@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { stringify, unescape } from 'querystring';
+import { stringify } from 'querystring';
 import { validateClassArguments, validateFetchArguments } from './validate';
 
 /** Wrike.com API wrapper class. */
@@ -37,10 +37,8 @@ export default class Wrike {
       headers['Content-Type'] = parameters.contentType;
       headers['X-File-Name'] = parameters.name;
       body = parameters.file;
-    } else if (method === 'get') {
-      url += `?${stringify(parameters)}`;
     } else {
-      body = unescape(stringify(parameters));
+      url += `?${stringify(parameters)}`;
     }
 
     const response = await fetch(url, { method, headers, body });
