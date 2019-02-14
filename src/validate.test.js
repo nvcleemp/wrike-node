@@ -25,31 +25,41 @@ describe('Testing the class arguments', () => {
 });
 
 describe('Testing the fetch arguments', () => {
-  describe('Testing the "path" argument', () => {
-    test('Can\'t call API with an undefined path', () => {
+  describe('Testing the "method" argument', () => {
+    test('Can\'t call API with an undefined method', () => {
       expect(() => validateFetchArguments()).toThrow();
     });
 
+    test('Can\'t call API with an invalid method', () => {
+      expect(() => validateFetchArguments('1')).toThrow();
+    });
+  });
+
+  describe('Testing the "path" argument', () => {
+    test('Can\'t call API with an undefined path', () => {
+      expect(() => validateFetchArguments('get')).toThrow();
+    });
+
     test('Can\'t call API with an empty path', () => {
-      expect(() => validateFetchArguments('')).toThrow();
+      expect(() => validateFetchArguments('get', '')).toThrow();
     });
 
     test('Can\'t call the API root', () => {
-      expect(() => validateFetchArguments('/')).toThrow();
+      expect(() => validateFetchArguments('get', '/')).toThrow();
     });
 
     test('The API method path has to be of type string', () => {
-      expect(() => validateFetchArguments(['/tasks'])).toThrow();
+      expect(() => validateFetchArguments('get', ['/tasks'])).toThrow();
     });
 
     test('The API method path CAN be called without parameters', () => {
-      expect(() => validateFetchArguments('/tasks')).not.toThrow();
+      expect(() => validateFetchArguments('get', '/tasks')).not.toThrow();
     });
   });
 
   describe('Testing the "parameters" argument', () => {
     test('The API parameters argument has to be of type object', () => {
-      expect(() => validateFetchArguments('/tasks', [])).toThrow();
+      expect(() => validateFetchArguments('get', '/tasks', [])).toThrow();
     });
   });
 });
