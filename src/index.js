@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import FormData from 'form-data';
 import { stringify } from 'querystring';
 import { validateClassArguments, validateFetchArguments } from './validate';
 

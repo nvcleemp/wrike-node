@@ -1,6 +1,6 @@
 {
   "name": "wrike-node",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Node.js Wrike.com API wrapper.",
   "main": "dist/index.js",
   "files": [
@@ -31,6 +31,7 @@
     "rimraf": "^2.6.3"
   },
   "dependencies": {
+    "form-data": "^2.3.3",
     "node-fetch": "^2.3.0"
   },
   "bugs": {
