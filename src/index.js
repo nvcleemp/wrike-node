@@ -43,7 +43,9 @@ export default class Wrike {
         url += `?${stringify(parameters)}`;
       } else {
         body = new URLSearchParams();
-        Object.keys(parameters).forEach(key => body.append(key, parameters[key]));
+        Object.keys(parameters).forEach(key => body.append(key, typeof parameters[key] !== 'string'
+          ? JSON.stringify(parameters[key])
+          : parameters[key]));
       }
     }
 
