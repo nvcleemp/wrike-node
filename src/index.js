@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import FormData from 'form-data';
+import { URLSearchParams } from 'url';
 import { stringify } from 'querystring';
 import { validateClassArguments, validateFetchArguments } from './validate';
 
@@ -33,16 +33,18 @@ export default class Wrike {
     let url = `${this.baseUrl}${path}`;
     let body = null;
 
-    if (parameters && parameters.file && parameters.name && parameters.contentType) {
-      headers['X-Requested-With'] = 'XMLHttpRequest';
-      headers['Content-Type'] = parameters.contentType;
-      headers['X-File-Name'] = parameters.name;
-      body = parameters.file;
-    } else if (method === 'get') {
-      url += `?${stringify(parameters)}`;
-    } else {
-      body = new FormData();
-      Object.keys(parameters).forEach(key => body.append(key, parameters[key]));
+    if (parameters) {
+      if (parameters.file && parameters.name && parameters.contentType) {
+        headers['X-Requested-With'] = 'XMLHttpRequest';
+        headers['Content-Type'] = parameters.contentType;
+        headers['X-File-Name'] = parameters.name;
+        body = parameters.file;
+      } else if (method === 'get') {
+        url += `?${stringify(parameters)}`;
+      } else {
+        body = new URLSearchParams();
+        Object.keys(parameters).forEach(key => body.append(key, parameters[key]));
+      }
     }
 
     const response = await fetch(url, { method, headers, body });
