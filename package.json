@@ -1,6 +1,6 @@
 {
   "name": "wrike-node",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Node.js Wrike.com API wrapper.",
   "main": "dist/index.js",
   "files": [
