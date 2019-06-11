@@ -5,7 +5,7 @@ import { stringify } from 'querystring';
 type Region = 'us'|'eu';
 type Method = 'get'|'post'|'put'|'delete';
 type Parameters = {
-  file: string|Buffer|Blob|ReadableStream,
+  file: string|Buffer|Blob|NodeJS.ReadableStream,
   contentType: string,
   name: string,
 };
@@ -21,9 +21,9 @@ export default class Wrike {
   private async fetch(
     method: Method,
     path: string,
-    parameters?: Parameters): Promise<object[]|ReadableStream> {
+    parameters?: Parameters): Promise<object[]|NodeJS.ReadableStream> {
     const headers: any = { Authorization: `bearer ${this.accessToken}` };
-    let url = `${this.baseUrl}${path}`;
+    let url = /^\//.test(path) ? `${this.baseUrl}${path}` : `${this.baseUrl}/${path}`;
     let body: any = null;
 
     if (parameters) {
@@ -36,15 +36,21 @@ export default class Wrike {
         url += `?${stringify(parameters)}`;
       } else {
         body = new URLSearchParams();
-        Object.keys(parameters).forEach(key => body.append(key, typeof parameters[key] !== 'string'
-          ? JSON.stringify(parameters[key])
-          : parameters[key]));
+
+        Object.keys(parameters)
+          .forEach((key) => {
+            const paramKey = key as keyof Parameters;
+
+            body.append(key, typeof parameters[paramKey] !== 'string'
+              ? JSON.stringify(parameters[paramKey])
+              : parameters[paramKey]);
+          });
       }
     }
 
     const response = await nodeFetch(url, { method, headers, body });
 
-    if (/^\/attachments\/[^/]+\/(?:download|preview)/.test(path)) {
+    if (/^\/?attachments\/[^/]+\/(?:download|preview)/.test(path)) {
       return response.body;
     }
 
@@ -58,22 +64,24 @@ export default class Wrike {
   }
 
   /** Send a GET request to the Wrike API. */
-  get(path: string, parameters?: Parameters): Promise<object[]|ReadableStream> {
+  get(path: string, parameters?: Parameters) {
     return this.fetch('get', path, parameters);
   }
 
   /** Send a POST request to the Wrike API. */
-  post(path: string, parameters?: Parameters): Promise<object[]|ReadableStream> {
+  post(path: string, parameters?: Parameters) {
     return this.fetch('post', path, parameters);
   }
 
   /** Send a PUT request to the Wrike API. */
-  put(path: string, parameters?: Parameters): Promise<object[]|ReadableStream> {
+  put(path: string, parameters?: Parameters) {
     return this.fetch('put', path, parameters);
   }
 
   /** Send a DELETE request to the Wrike API. */
-  delete(path: string, parameters?: Parameters): Promise<object[]|ReadableStream> {
+  delete(path: string, parameters?: Parameters) {
     return this.fetch('delete', path, parameters);
   }
 }
+
+module.exports = Wrike;

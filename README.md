@@ -15,7 +15,7 @@ const Wrike = require('wrike-node');
 const wrike = new Wrike('<access_token>');
 
 wrike
-  .get('/tasks', { limit: 3 })
+  .get('tasks', { limit: 3 })
   .then(tasks => console.log(tasks));
 ```
 
@@ -29,8 +29,8 @@ wrike
 
 ### wrike.get|post|put|delete(path[, parameters])
 
-* `path` &lt;String&gt; E.g. `'/tasks'`
-* `parameters` &lt;Object&gt; E.g. `{ limit: 3 }` *For all options, see: https://developers.wrike.com/documentation*
+* `path` &lt;String&gt; E.g. `'folders/IEABQ4RUI4AQJFU3/tasks'`
+* `parameters` &lt;Object&gt; E.g. `{ importance: 'High' }` *For all options, see: https://developers.wrike.com/documentation*
 
 Always returns a `Promise`, resolving to either:
 
