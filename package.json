@@ -1,40 +1,36 @@
 {
   "name": "wrike-node",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Node.js Wrike.com API wrapper.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "files": [
-    "/dist/**/!(*.test).js"
+    "/dist/**/*"
   ],
   "scripts": {
-    "lint": "eslint src/**",
-    "test": "jest",
-    "build": "rimraf dist && babel src -d dist",
-    "prepare": "npm run lint && npm run test && npm run build"
+    "test": "jest --passWithNoTests",
+    "lint": "tslint -p tsconfig.json",
+    "build": "tsc",
+    "prepublishOnly": "npm test && npm run lint",
+    "prepare": "npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/GreenhouseGroupBV/wrike-node.git"
-  },
+  "repository": "github:greenhousecode/wrike-node",
+  "bugs": "https://github.com/greenhousecode/wrike-node/issues",
+  "homepage": "https://github.com/greenhousecode/wrike-node#readme",
   "author": "Rick Stevens <rick.stevens@greenhousegroup.com> (https://www.greenhousegroup.com/)",
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "babel-plugin-add-module-exports": "^1.0.0",
-    "eslint": "^5.3.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jest": "^22.2.2",
-    "jest": "^24.1.0",
-    "rimraf": "^2.6.3"
+    "@types/node": "^12.0.7",
+    "@types/node-fetch": "^2.3.5",
+    "jest": "^24.8.0",
+    "tslint": "^5.17.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.5.1"
   },
   "dependencies": {
-    "node-fetch": "^2.3.0"
-  },
-  "bugs": {
-    "url": "https://github.com/GreenhouseGroupBV/wrike-node/issues"
-  },
-  "homepage": "https://github.com/GreenhouseGroupBV/wrike-node#readme"
+    "node-fetch": "^2.6.0"
+  }
 }
