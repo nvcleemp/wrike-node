@@ -5,9 +5,10 @@ import { stringify } from 'querystring';
 type Region = 'us'|'eu';
 type Method = 'get'|'post'|'put'|'delete';
 type Parameters = {
-  file: string|Buffer|Blob|NodeJS.ReadableStream,
-  contentType: string,
-  name: string,
+  file?: string|Buffer|Blob|NodeJS.ReadableStream,
+  contentType?: string,
+  name?: string,
+  nextPageToken?: string,
 };
 
 /** Wrike.com API wrapper class. */
@@ -41,9 +42,9 @@ export default class Wrike {
           .forEach((key) => {
             const paramKey = key as keyof Parameters;
 
-            body.append(key, typeof parameters[paramKey] !== 'string'
-              ? JSON.stringify(parameters[paramKey])
-              : parameters[paramKey]);
+            body.append(key, typeof parameters![paramKey] !== 'string'
+              ? JSON.stringify(parameters![paramKey])
+              : parameters![paramKey]);
           });
       }
     }
@@ -60,7 +61,20 @@ export default class Wrike {
       throw new Error(`Wrike API: ${result.errorDescription}`);
     }
 
-    return result.data;
+    const data = result.data;
+
+    //recursively retrieve the next pages before returning
+    if (result.nextPageToken){
+      if (parameters) {
+        parameters.nextPageToken = result.nextPageToken;
+      } else {
+        parameters = {nextPageToken: result.nextPageToken};
+      }
+
+      data.push(...(await this.fetch(method, path, parameters)) as object[]);
+    }
+
+    return data;
   }
 
   /** Send a GET request to the Wrike API. */
